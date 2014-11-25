@@ -16,6 +16,12 @@
             margin-left: 2%;
             width: 40%;
         }
+
+        .content-preview-error {
+            display: none;
+            color: red;
+            font-weight: bold;
+        }
     </style>
 {% endblock %}
 
@@ -28,10 +34,15 @@
                 var $content = $(':input[name=content]'),
                     $previewWrapper = $('<div></div>').addClass('content-preview-wrapper'),
                     $preview = $('<div></div>').addClass('content-preview'),
+                    $previewError = $('<div></div>')
+                        .addClass('content-preview-error')
+                        .html('Something went wrong! Please keep editing, it ' +
+                            'should start working. If not, please let us know.'),
                     url = '{{ flatblock_preview_url }}';
                 $previewWrapper
                     .append($('<h2></h2>').text('Email preview:'))
-                    .append($preview);
+                    .append($preview)
+                    .append($previewError);
                 $content.after($previewWrapper);
 
                 // If there is no preview url, jump out here
@@ -41,6 +52,7 @@
                 }
 
                 function updatePreview() {
+                    $previewError.hide();
                     $.ajax(url, {
                         data: {
                             content: $content.val()
@@ -49,6 +61,11 @@
                     })
                         .done(function (data) {
                             $preview.html(data);
+                            $preview.show();
+                        })
+                        .fail(function (data) {
+                            $preview.hide();
+                            $previewError.show();
                         });
                 }
                 updatePreview();
