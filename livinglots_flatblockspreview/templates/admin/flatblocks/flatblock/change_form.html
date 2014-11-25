@@ -11,7 +11,7 @@
             width: 40%;
         }
 
-        .content-preview {
+        .content-preview-wrapper {
             display: inline-block;
             margin-left: 2%;
             width: 40%;
@@ -26,9 +26,13 @@
         (function ($) {
             $(document).ready(function() {
                 var $content = $(':input[name=content]'),
+                    $previewWrapper = $('<div></div>').addClass('content-preview-wrapper'),
                     $preview = $('<div></div>').addClass('content-preview'),
                     url = '{{ flatblock_preview_url }}';
-                $content.after($preview);
+                $previewWrapper
+                    .append($('<h2></h2>').text('Email preview:'))
+                    .append($preview);
+                $content.after($previewWrapper);
 
                 // If there is no preview url, jump out here
                 if (url === '') {
