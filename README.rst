@@ -3,7 +3,7 @@ django-livinglots-flatblockspreview
 
 A Django app for previewing rendered `FlatBlock
 <https://github.com/funkybob/django-flatblocks/>`_ templates, primarily for
-use within `Living Lots <https://github.com/596acres/django-livinglots>`_.
+use within `Living Lots <https://github.com/596acres/django-livinglots>`_ ®.
 
 
 License
